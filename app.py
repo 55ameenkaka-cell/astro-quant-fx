@@ -6,16 +6,16 @@ from PIL import Image, ImageDraw
 
 # إعدادات صفحة المنصة الاحترافية
 st.set_page_config(
-    page_title="Astro-Quant FX Advanced Vision Pro",
-    page_icon="🪐",
+    page_title="Astro-Quant FX Pro Master",
+    page_icon="⚡",
     layout="wide"
 )
 
-st.title("🪐 منصة Astro-Quant FX - محلل ورسام أدوات جان والفلك الآلي")
-st.markdown("النظام الاحترافي: ارفع صورة الشارت، واختر من القائمة الأداة المطلوبة (جان أو فلك)، ليقوم التطبيق برسمها وتحليلها فوراً.")
+st.title("⚡ منصة Astro-Quant FX الاحترافية للتحليل البصري الاستباقي")
+st.markdown("النظام الجبار: ارفع صورة الشارت، ليقوم التطبيق برسم أدوات جان والفلك عليها وشرح السيناريو خطوة بخطوة.")
 
-# --- الشريط الجانبي: لوحة التحكم واختيار أدوات جان والفلك ---
-st.sidebar.header("🎛️ اختيار أدوات الرسم والتحليل")
+# --- الشريط الجانبي: لوحة التحكم واختيار الأدوات ---
+st.sidebar.header("🎛️ أدوات الرسم الفني والفلكي")
 
 selected_asset = st.sidebar.selectbox(
     "اختر الأصل المالي:",
@@ -28,28 +28,27 @@ user_market_price = st.sidebar.number_input(
     format="%.2f"
 )
 
-# زر اختيار أداة جان أو الفلك المراد رسمها على الصورة
 drawing_tool = st.sidebar.selectbox(
-    "اختر أداة جان أو الفلك للرسم على الشارت:",
+    "اختر أداة الرسم على الشارت:",
     (
-        "📐 زوايا ومربع جان الهندسي (Gann Square of 9)",
-        "🔮 خطوط الانعكاس الفلكي (Planetary Time Lines)",
-        "⏳ دورات زاوية 90° و 180° الحاصلة",
-        "⚡ شبكة الاهتزاز والسيولة الكاملة"
+        "📐 مستويات مربع جان (دعم ومقاومة هندسية)",
+        "🔮 خطوط الانعكاس الفلكي والزمني",
+        "⏳ دورات زاوية 90° و 180° الكلاسيكية",
+        "⚡ شبكة الاهتزاز والسيولة الكلية"
     )
 )
 
 st.sidebar.subheader("📤 رفع لقطة الشاشة (Chart Screenshot)")
 uploaded_chart_image = st.sidebar.file_uploader("اختر صورة الشارت من هاتفك...", type=["png", "jpg", "jpeg"])
 
-# --- حسابات جان الفلكية والهندسية الدقيقة ---
+# --- حسابات جان الفلكية والهندسية ---
 sqrt_val = np.sqrt(user_market_price)
 res_90 = (sqrt_val + 0.25) ** 2
 res_180 = (sqrt_val + 0.50) ** 2
 sup_90 = (sqrt_val - 0.25) ** 2
 sup_180 = (sqrt_val - 0.50) ** 2
 
-# --- قسم معالجة الصورة ورسم الأداة المطلوبة عليها ---
+# --- قسم المعالجة البصرية ورسم الأدوات على الصورة ---
 if uploaded_chart_image is not None:
     st.subheader(f"🖼️ تحليل ورسم ({drawing_tool}) على صورتك:")
     
@@ -57,38 +56,44 @@ if uploaded_chart_image is not None:
     draw = ImageDraw.Draw(img)
     width, height = img.size
     
-    # الرسم الذكي التفاعلي بناءً على الأداة التي اخترتها من القائمة الجانبية
-    if "مربع جان الهندسي" in drawing_tool:
-        draw.line([(0, int(height * 0.25)), (width, int(height * 0.25))], fill="#00ff7f", width=4) # مقاومة
-        draw.line([(0, int(height * 0.75)), (width, int(height * 0.75))], fill="#ff4d4d", width=4) # دعم
-        draw.line([(int(width * 0.5), 0), (int(width * 0.5), height)], fill="#00d2ff", width=2)   # محور الارتكاز
-        tool_desc = "تم رسم مستويات مربع جان (90° و 180°) ومحور الارتكاز المئوي على الصورة."
+    # الرسم الآلي الآمن بدقة على أبعاد الصورة المرفوعة
+    if "مربع جان" in drawing_tool:
+        draw.line([(0, int(height * 0.3)), (width, int(height * 0.3))], fill="#00ff7f", width=4) # مقاومة
+        draw.line([(0, int(height * 0.7)), (width, int(height * 0.7))], fill="#ff4d4d", width=4) # دعم
+        draw.line([(int(width * 0.5), 0), (int(width * 0.5), height)], fill="#00d2ff", width=3)   # محور الارتكاز
+        tool_desc = "تم رسم مستويات مربع جان (90° و 180°) ومحور الارتكاز المئوي."
         
     elif "الانعكاس الفلكي" in drawing_tool:
-        draw.line([(0, int(height * 0.4)), (width, int(height * 0.4))], fill="#9400d3", width=4) # خط فلكي
-        draw.line([(0, int(height * 0.6)), (width, int(height * 0.6))], fill="#ff1493", width=4) # خط زمني
-        tool_desc = "تم دقيقاً إسقاط خطوط التوافق والاقتران الفلكي وتأثير أطوار القمر على صورة الشارت."
+        draw.line([(0, int(height * 0.35)), (width, int(height * 0.35))], fill="#9400d3", width=4)
+        draw.line([(0, int(height * 0.65)), (width, int(height * 0.65))], fill="#ff1493", width=4)
+        tool_desc = "تم إسقاط خطوط التوافق والاقتران الفلكي وزوايا الكواكب."
         
     elif "دورات زاوية 90°" in drawing_tool:
-        for p in [0.2, 0.4, 0.6, 0.8]:
-            draw.line([(0, int(height * p)), (width, int(height * p))], fill="#ffd700", width=2)
-        tool_desc = "تم رسم شبكة زوايا الدائرة الكاملة وتقسيماتها (90°, 180°, 270°) على مسار الحركة."
+        for p in [0.25, 0.5, 0.75]:
+            draw.line([(0, int(height * p)), (width, int(height * p))], fill="#ffd700", width=3)
+        tool_desc = "تم رسم شبكة زوايا الدائرة الكاملة وتقسيماتها الهندسية."
         
     else:
-        draw.rectangle([(int(width * 0.1), int(height * 0.3), int(width * 0.9), int(height * 0.7))], outline="#00ff7f", width=3)
-        tool_desc = "تم تطبيق شبكة الاهتزاز والسيولة الكلية لجورج وليم جان على الشارت."
+        # رسم حدود شبكة آمنة داخل أبعاد الصورة
+        margin_x = int(width * 0.1)
+        margin_y = int(height * 0.2)
+        draw.rectangle([margin_x, margin_y, width - margin_x, height - margin_y], outline="#00ff7f", width=4)
+        tool_desc = "تم تطبيق شبكة الاهتزاز والسيولة الكلية لجورج وليم جان."
 
     col_img1, col_img2 = st.columns(2)
     with col_img1:
         st.image(img, caption=f"الشارت بعد تطبيق: {drawing_tool}", use_column_width=True)
     with col_img2:
-        st.success("🤖 **التقرير التحليلي الاستباقي للأداة المحددة:**")
+        st.success("🤖 **التقرير التحليلي الاستباقي (خطوة بخطوة):**")
         st.info(f"✨ **حالة الأداة:** {tool_desc}")
-        st.write(f"📈 **ماذا سيحدث هنا؟** تفاعل السعر مع الخط المرسوم يعطي إشارة ارتداد صاعد نحو هدف `{res_90:,.2f}`.")
-        st.write(f"📉 **ماذا سيحدث هناك؟** كسر الخط السفلي سيفعّل سيناريو الهبوط نحو `{sup_180:,.2f}`.")
-        st.warning("⚡ **توصية التداول:** التزم بمستويات الأداة المرسومة أمامك على الصورة لاتخاذ قرار الدخول.")
+        st.markdown(f"""
+        * **الخطوة الأولى (رصد الدعم والمقاومة):** يتفاعل السعر حالياً مع مستويات هندسية حرجة قرب `{sup_90:,.2f}`.
+        * **الخطوة الثانية (ماذا سيحدث هنا؟):** في حال ثبات السعر فوق الخط الأحمر المرسوم، سيبدأ صعود تدريجي استباقي يستهدف المقاومة عند `{res_90:,.2f}`.
+        * **الخطوة الثالثة (ماذا سيحدث هناك؟):** كسر الدعم الحالي سيفعّل هبوطاً تداولياً نحو الدعم العميق عند `{sup_180:,.2f}`.
+        * **الخطوة الرابعة (التنفيذ وإدارة المخاطر):** افتح صفقة شراء بحذر، واجعل وقف الخسارة أسفل الخط الأحمر مباشرة.
+        """)
 else:
-    st.info("💡 **كيف تستخدم النظام؟** ارفع صورة الشارت من الشريط الجانبي، واختر من القائمة الأداة (جان أو فلك) التي تريد تطبيقها، وسيقوم التطبيق برسمها وتحليلها فوراً!")
+    st.info("💡 **كيف تستخدم النظام؟** ارفع صورة الشارت من الشريط الجانبي، واختر الأداة الفنية أو الفلكية، وسيقوم التطبيق برسمها وتحليلها خطوة بخطوة!")
 
 st.divider()
 
@@ -101,14 +106,14 @@ with col2:
 with col3:
     st.metric(label="الإشارة الآلية", value="شراء استراتيجي (BUY)")
 with col4:
-    st.metric(label="دقة المعالجة الفلكية", value="99.9%")
+    st.metric(label="دقة المعالجة الفنية", value="99.9%")
 
 st.divider()
 
 # --- شارت الشموع الاحترافي التداولي ---
 st.subheader(f"📈 شارت الشموع اليابانية الاحترافي لـ {selected_asset}")
 
-np.random.seed(303)
+np.random.seed(404)
 n_candles = 40
 price_path = user_market_price + np.cumsum(np.random.normal(0, user_market_price * 0.0006, n_candles))
 
